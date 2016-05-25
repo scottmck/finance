@@ -1,7 +1,7 @@
 <?php
 
     // configuration
-    /*require("../includes/config.php"); 
+    require("../includes/config.php"); 
     
     // if user reached page via GET (as by clicking a link or via redirect)
     if ($_SERVER["REQUEST_METHOD"] == "GET")
@@ -40,9 +40,8 @@
       
         
         //query database
-        //$stock = $_POST["sale_stock"];
-        //$id = $_SESSION["id"];
-        CS50::query("DELETE shares FROM `portfolio` WHERE user_id = ? AND symbol = ?", $_SESSION["id"], $_POST["sale_stock"]);
+       
+        CS50::query("DELETE FROM `portfolio` WHERE user_id = ? AND symbol = ?", $_SESSION["id"], $_POST["sale_stock"]);
         $rows = CS50::query("SELECT * FROM `portfolio` WHERE user_id = ?", $_SESSION["id"]);
         $cash = CS50::query("SELECT username, cash FROM `users` WHERE id =?", $_SESSION["id"]);
          
@@ -66,5 +65,5 @@
             render("sell_display.php", ["title" => "Positions", "positions" => $positions, "cash" => $cash]);
         }
         
-*/    
+   
 ?>
