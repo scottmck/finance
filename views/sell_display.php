@@ -1,4 +1,4 @@
-<!--below is the display for the sell stock form
+<!--below is the display for the sell stock form-->
 <div>
     
         <form action="sell.php" method="post">
@@ -18,7 +18,7 @@
         or <a href="index.php">go back to portfolio</a>
     </div>
     
-<!--below is the display for portfolio    
+<!--below is the display for portfolio -->   
     <div>
     <div id="message">
         <?php
@@ -34,18 +34,19 @@
     </thead>
     
     <tbody>
-    <?php //foreach ($positions as $position): ?>
+    <?php foreach ($positions as $position): ?>
         <tr>    
-            <td><?= //$position["symbol"]?></td>
-            <td><?= //$position["name"]?></td>
-            <td><?= //$position["shares"]?></td>
-            <td><?= //number_format($position["price"], 2)?></td>
-            <td><?= //number_format($position["total"], 2)?></td>
+            <td><?= $position["symbol"]?></td>
+            <td><?= $position["name"]?></td>
+            <td><?= $position["shares"]?></td>
+            <td><?= number_format($position["price"], 2)?></td>
+            <td><?= number_format($position["total"], 2)?></td>
         </tr>
-    <?php //endforeach ?>    
+    <?php endforeach ?>    
     </tbody>
 </table>
 </div>
             
 </div>
+    
     
