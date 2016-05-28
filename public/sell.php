@@ -38,37 +38,20 @@
             apologize("You must provide a stock symbol.");
         }
       
-        
-        //query database and find out amount to add
+        //query sql for variables to use and update cash before deleting portfolio entry
+        $stock_sell = lookup($_POST["sale_stock"]);
+        $user_cash = CS50::query("SELECT cash FROM `users` WHERE id = ?", $_SESSION["id"]);
         $lookup_rows = CS50::query("SELECT * FROM `portfolio` WHERE user_id = ? AND symbol = ?", $_SESSION["id"], $_POST["sale_stock"]);
-        $new_arr = [];
-        
-        foreach($lookup_rows as $lookup_row)
-        {
-            $stock_sell = lookup($lookup_row["symbol"]);
-        
-            if($stock_sell !== false)
-            {
-               $new_arr[] = [
-                   "name" => $stock_sell["name"],
-                   "price" => $stock_sell["price"],
-                   "shares" => $lookup_row["shares"],
-                   "symbol" => $lookup_row["symbol"],
-                   "add_total" => $lookup_row["shares"] * $stock_sell["price"]
-                    ];
-                       
-            }
-        }
-        
+        CS50::query("UPDATE `users` SET cash = cash + ? WHERE id = ?",($stock_sell["price"] * $lookup_rows[0]["shares"]), $_SESSION["id"]);
+
         //delete portfolio containing shares to be sold
         CS50::query("DELETE FROM `portfolio` WHERE user_id = ? AND symbol = ?", $_SESSION["id"], $_POST["sale_stock"]);
-        CS50::query("UPDATE `users` SET cash = cash + ? WHERE id = ?", $new_arr[0]["add_total"] ,$_SESSION["id"]);
         
         //query database to be able to output to sell_display via render
         $rows = CS50::query("SELECT * FROM `portfolio` WHERE user_id = ?", $_SESSION["id"]);
         $cash = CS50::query("SELECT username, cash FROM `users` WHERE id =?", $_SESSION["id"]);
          
-        
+        //set positions array and pass to sell_display via render
         $positions = [];
         foreach($rows as $row)
         {
