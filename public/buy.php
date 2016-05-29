@@ -20,7 +20,7 @@
             apologize("You must provide an amount of stock to buy");
         }
         
-        $rows = CS50::query("SELECT symbol FROM `portfolio` WHERE user_id = ?", $_SESSION["id"]);
+        //$rows = CS50::query("SELECT symbol FROM `portfolio` WHERE user_id = ?", $_SESSION["id"]);
         
         $stock_buy = lookup($_POST["buy_stock"]);
         $user_cash = CS50::query("SELECT cash FROM `users` WHERE id = ?", $_SESSION["id"]);
@@ -35,6 +35,11 @@
             ON DUPLICATE KEY UPDATE shares = shares + VALUES(shares)", $_SESSION["id"], $_POST["buy_stock"], $_POST["buy_amount"]);
                 
             CS50::query("UPDATE `users` SET cash = cash - ? WHERE id = ?",($stock_buy["price"] * $_POST["buy_amount"]) ,$_SESSION["id"]);
+
+            //add update to sql for inserting row into history
+            CS50::query("INSERT INTO `history` (user_id, buy_or_sell, symbol, share_number, price) VALUES ( ?, ?, ?, ?, ? )", 
+            $_SESSION["id"], "buy", $_POST["buy_stock"], $_POST["buy_amount"], $stock_buy["price"]);
+
                 
             $rows = CS50::query("SELECT * FROM `portfolio` WHERE user_id = ?", $_SESSION["id"]);
             $cash = CS50::query("SELECT username, cash FROM `users` WHERE id =?", $_SESSION["id"]);
