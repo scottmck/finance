@@ -47,6 +47,10 @@
         //delete portfolio containing shares to be sold
         CS50::query("DELETE FROM `portfolio` WHERE user_id = ? AND symbol = ?", $_SESSION["id"], $_POST["sale_stock"]);
         
+        //add update to sql for inserting row into history
+        CS50::query("INSERT INTO `history` (user_id, buy_or_sell, symbol, share_number, price) VALUES ( ?, ?, ?, ?, ? )", 
+        $_SESSION["id"], "sell", $_POST["sale_stock"], $lookup_rows[0]["shares"], $stock_sell["price"]);
+        
         //query database to be able to output to sell_display via render
         $rows = CS50::query("SELECT * FROM `portfolio` WHERE user_id = ?", $_SESSION["id"]);
         $cash = CS50::query("SELECT username, cash FROM `users` WHERE id =?", $_SESSION["id"]);
