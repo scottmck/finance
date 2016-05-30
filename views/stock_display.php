@@ -1,16 +1,18 @@
-<div id="tableid">
+<div>
         
-    <table class="center"; border="2">
+    <table class="center">
+        <thead>
+            <tr>
+                <th>Stock Symbol</th>
+                <th>Stock Name</th>
+                <th>Stock Price</th>
+            </tr>
+        </thead>
         <tr>
-            <td>Stock Symbol</td>
-            <td>Stock Name</td>
-            <td>Stock Price</td>
-        </tr>
-        <tr>
-            <td><?=($stock["symbol"])?></td>
+            <td><?=strtoupper($stock["symbol"])?></td>
             <td><?=($stock["name"])?></td>
             <td>$<?=number_format($stock["price"], 2)?></td>
         </tr>
         
     </table>
-</div>   
+</div>
