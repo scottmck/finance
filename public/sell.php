@@ -72,8 +72,6 @@
                 ];
             }
         }
-            render("sell_display.php", ["title" => "Positions", "positions" => $positions, "cash" => $cash]);
-        }
-        
-   
+        redirect("/");
+    }
 ?>
