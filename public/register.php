@@ -36,11 +36,8 @@
                     $id = $rows[0]["id"];
                     $_SESSION["id"] = $id;
                     redirect("/");
-                    
                 }
             }
         }
-        
     }
-         
 ?>
