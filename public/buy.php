@@ -32,7 +32,7 @@
         elseif($user_cash[0]["cash"] >= ($stock_buy["price"] * $_POST["buy_amount"]))
         {
             CS50::query("INSERT INTO `portfolio` (user_id, symbol, shares) VALUES ( ?, ?, ?) 
-            ON DUPLICATE KEY UPDATE shares = shares + VALUES(shares)", $_SESSION["id"], $_POST["buy_stock"], $_POST["buy_amount"]);
+            ON DUPLICATE KEY UPDATE shares = shares + VALUES(shares)", $_SESSION["id"], strtoupper($_POST["buy_stock"]), $_POST["buy_amount"]);
                 
             CS50::query("UPDATE `users` SET cash = cash - ? WHERE id = ?",($stock_buy["price"] * $_POST["buy_amount"]) ,$_SESSION["id"]);
 
@@ -61,8 +61,8 @@
                 }
             }
             
-            // render portfolio
-            render("portfolio.php", ["title" => "Positions", "positions" => $positions, "cash" => $cash]);
+            // redirect to /
+           redirect("/");
         }
     }
     
