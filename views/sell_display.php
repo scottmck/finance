@@ -24,14 +24,16 @@
             <?php
                 print("Hi ". $cash[0]["username"] .". Your balance is " . number_format($cash[0]["cash"], 2));?>
         </div>
-        <div id="tableid">    
-            <table class="center"; border="2">
+        <div>    
+            <table class="center">
                 <thead>
-                    <th>Stock Symbol</th>
-                    <th>Name</th>
-                    <th>Shares</th>
-                    <th>Price</th>
-                    <th>Total Shares Cost</th>
+                    <tr>
+                        <th>Stock Symbol</th>
+                        <th>Name</th>
+                        <th>Shares</th>
+                        <th>Price</th>
+                        <th>Total Shares Cost</th>
+                    </tr>
                 </thead>
             
                 <tbody>
@@ -48,6 +50,5 @@
             </table>
         </div>
     </div>
-            
 </div>
     
