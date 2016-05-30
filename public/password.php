@@ -35,6 +35,7 @@
             //verify password against hash
             if(password_verify($_POST["password"], $passrow["hash"]))
             {
+                //checks password confirmation
                 if($_POST["password"] == $_POST["newpassword"])
                 {
                     apologize("Your new password is the same as your old password");
@@ -55,7 +56,5 @@
                 apologize("Sorry i do not recognize your current password please try again");
             }
         }
-        
-        
     }
 ?>
